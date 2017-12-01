@@ -1,44 +1,18 @@
 
-
-
-main();
-
-
-function main() {
+function __main() {
     const canvas = document.querySelector('#glcanvas');
+    // 获取 webgl 上下文
     const gl = canvas.getContext('webgl');
     
-    // If we don't have a GL context, give up now
     
-    if (!gl) {
-        alert('Unable to initialize WebGL. Your browser or machine may not support it.');
-        return;
-    }
-    
-    // Vertex shader program
-    
-    const vsSource = `
-    attribute vec4 aVertexPosition;
 
-    uniform mat4 uModelViewMatrix;
-    uniform mat4 uProjectionMatrix;
-
-    void main() {
-      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-    }
-  `;
     
-    // Fragment shader program
+    // 初始化着色器
+    const shaderProgram = initShaderProgram(gl);
     
-    const fsSource = `
-    void main() {
-      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-    }
-  `;
+    // 创建缓冲器
+    const buffers = initBuffers(gl);
     
-    // Initialize a shader program; this is where all the lighting
-    // for the vertices and so forth is established.
-    const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
     
     // Collect all the info needed to use the shader program.
     // Look up which attribute our shader program is using
@@ -54,13 +28,11 @@ function main() {
         },
     };
     
-    // Here's where we call the routine that builds all the
-    // objects we'll be drawing.
-    const buffers = initBuffers(gl);
-    
-    // Draw the scene
+    // 绘制
     drawScene(gl, programInfo, buffers);
 }
+
+__main();
 
 
 

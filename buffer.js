@@ -6,18 +6,12 @@
 // have one object -- a simple two-dimensional square.
 //
 function initBuffers(gl) {
-    
-    // Create a buffer for the square's positions.
-    
+    // 缓冲器对象
     const positionBuffer = gl.createBuffer();
-    
-    // Select the positionBuffer as the one to apply buffer
-    // operations to from here out.
-    
+    // 绑定上下文
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     
-    // Now create an array of positions for the square.
-    
+    // 表示正方形顶点的数组
     const positions = [
         1.0,  1.0,
         -1.0,  1.0,
@@ -25,13 +19,10 @@ function initBuffers(gl) {
         -1.0, -1.0,
     ];
     
-    // Now pass the list of positions into WebGL to build the
-    // shape. We do this by creating a Float32Array from the
-    // JavaScript array, then use it to fill the current buffer.
-    
-    gl.bufferData(gl.ARRAY_BUFFER,
-      new Float32Array(positions),
-      gl.STATIC_DRAW);
+    // 将 js 数组转换为 Float32Array 数组
+    const webglPos = new Float32Array(positions)
+    // 将数据填充到 buffer
+    gl.bufferData(gl.ARRAY_BUFFER, webglPos, gl.STATIC_DRAW);
     
     return {
         position: positionBuffer,

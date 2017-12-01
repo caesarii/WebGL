@@ -3,13 +3,15 @@
 // Draw the scene.
 //
 function drawScene(gl, programInfo, buffers) {
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
-    gl.clearDepth(1.0);                 // Clear everything
-    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
-    gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
-    
-    // Clear the canvas before we start drawing on it.
-    
+    // 设置清楚颜色
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    // 全部清除
+    gl.clearDepth(1.0);
+    // 启用深度测试
+    gl.enable(gl.DEPTH_TEST);
+    // 设置深度测试
+    gl.depthFunc(gl.LEQUAL);
+    // 清空画布
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
     // Create a perspective matrix, a special matrix that is
@@ -18,15 +20,16 @@ function drawScene(gl, programInfo, buffers) {
     // ratio that matches the display size of the canvas
     // and we only want to see objects between 0.1 units
     // and 100 units away from the camera.
-    
+    // 创建透视矩阵
+    // 视图角度
     const fieldOfView = 45 * Math.PI / 180;   // in radians
+    // 宽高比
     const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+    // 可见范围
     const zNear = 0.1;
     const zFar = 100.0;
+    // 创建一个矩阵保存结果
     const projectionMatrix = mat4.create();
-    
-    // note: glmatrix.js always has the first argument
-    // as the destination to receive the result.
     mat4.perspective(projectionMatrix,
       fieldOfView,
       aspect,
