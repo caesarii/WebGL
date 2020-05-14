@@ -12,7 +12,7 @@ function main() {
 
 
   //  创建着色器程序
-  const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+  const shaderProgram = initShaderProgram(gl, vertexShaderSource, fragmentShaderSource);
   const programInfo = {
     program: shaderProgram,
     attribLocations: {
