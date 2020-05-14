@@ -10,12 +10,27 @@ function main() {
     return;
   }
 
-  // 设置颜色
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
-  // 使用指定颜色清除上下文
-  gl.clear(gl.COLOR_BUFFER_BIT);
+
+  //  创建着色器程序
+  const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+  const programInfo = {
+    program: shaderProgram,
+    attribLocations: {
+      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+    },
+    uniformLocations: {
+      projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+      modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+    },
+  };
+
+  // Here's where we call the routine that builds all the
+  // objects we'll be drawing.
+  const buffers = initBuffers(gl);
+
+  // Draw the scene
+  drawScene(gl, programInfo, buffers);
 }
 window.onload = function () {
   main()
-
 }
